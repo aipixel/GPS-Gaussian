@@ -10,8 +10,15 @@
 
 </div>
 
-<img src="https://shunyuanzheng.github.io/assets/GPS-Gaussian/images/pipeline.png">
+<img src="https://shunyuanzheng.github.io/assets/GPS-Gaussian/images/teaser.png">
 
 ***Abstract**: We present a new approach, termed GPS-Gaussian, for synthesizing novel views of a character in a real-time manner. The proposed method enables 2K-resolution rendering under a sparse-view camera setting. Unlike the original Gaussian Splatting or neural implicit rendering methods that necessitate per-subject optimizations, we introduce Gaussian parameter maps defined on the source views and regress directly Gaussian Splatting properties for instant novel view synthesis without any fine-tuning or optimization. To this end, we train our Gaussian parameter regression module on a large amount of human scan data, jointly with a depth estimation module to lift 2D parameter maps to 3D space. The proposed framework is fully differentiable and experiments on several datasets demonstrate that our method outperforms state-of-the-art methods while achieving an exceeding rendering speed.*
 
 Code is coming soon.
+
+## Free View Rendering Results
+### Data collected by ourselves
+<video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+  <source src="assets/GPS-Gaussian/videos/dna188_freeview.mp4" type="video/mp4">
+</video>
+### Data from [DNA-Rendering](https://dna-rendering.github.io/)
