@@ -18,6 +18,6 @@ Code is coming soon.
 
 ## Free View Rendering Results
 ### Data collected by ourselves
-<video src="https://shunyuanzheng.github.io/assets/GPS-Gaussian/videos/dna188_freeview.mp4">
+https://shunyuanzheng.github.io/assets/GPS-Gaussian/videos/dna188_freeview.mp4
 
 ### Data from [DNA-Rendering](https://dna-rendering.github.io/)
