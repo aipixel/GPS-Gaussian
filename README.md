@@ -19,6 +19,6 @@ Code is coming soon.
 ## Free View Rendering Results
 ### Data collected by ourselves
 <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-  <source src="assets/GPS-Gaussian/videos/dna188_freeview.mp4" type="video/mp4">
+  <source src="https://shunyuanzheng.github.io/assets/GPS-Gaussian/videos/dna188_freeview.mp4" type="video/mp4">
 </video>
 ### Data from [DNA-Rendering](https://dna-rendering.github.io/)
