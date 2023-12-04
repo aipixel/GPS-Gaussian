@@ -19,6 +19,11 @@ Code is coming soon.
 ## Free View Rendering Results
 ### Data collected by ourselves
 
-https://shunyuanzheng.github.io/assets/GPS-Gaussian/videos/dna188_freeview.mp4
+https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/36d06407-fadc-485a-864b-961fbd4d4b60
 
 ### Data from [DNA-Rendering](https://dna-rendering.github.io/)
+
+https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/d392673c-13cd-442d-aa94-6629c9edfb3c
+
+https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/371171ca-46a9-427b-9549-9d65fc4b135d
+
