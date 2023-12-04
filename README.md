@@ -27,3 +27,13 @@ https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/d392673c-13cd-442d
 
 https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/371171ca-46a9-427b-9549-9d65fc4b135d
 
+## Live Demo
+
+https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/e5f30839-ab01-4594-81e8-f1ea5314ff36
+
+https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/31fd4012-7344-418c-aa06-a614ded3c236
+
+https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/fa894569-1771-438e-927d-7680147f17ca
+
+
+
