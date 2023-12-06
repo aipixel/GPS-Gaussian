@@ -6,7 +6,7 @@
 
 <sup>1</sup>Harbin Institute of Technology <sup>2</sup>Tsinghua Univserity
 
-### [Projectpage](shunyuanzheng.github.io/GPS-Gaussian) · [Paper](https://arxiv.org/pdf/xxx.pdf) · [Video](https://youtu.be/TBIekcqt0j0)
+### [Projectpage](https://shunyuanzheng.github.io/GPS-Gaussian) · [Paper](https://arxiv.org/pdf/xxx.pdf) · [Video](https://youtu.be/TBIekcqt0j0)
 
 </div>
 
