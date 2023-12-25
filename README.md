@@ -2,38 +2,86 @@
 
 # <b>GPS-Gaussian</b>: Generalizable Pixel-wise 3D Gaussian Splatting for Real-time Human Novel View Synthesis
 
-[Shunyuan Zheng](https://shunyuanzheng.github.io)<sup>1</sup>, [Boyao Zhou](https://morpheo.inrialpes.fr/people/zhou)<sup>2</sup>, [Ruizhi Shao](https://dsaurus.github.io/saurus)<sup>2</sup>, [Boning Liu](https://scholar.google.com/citations?user=PG1mUewAAAAJ)<sup>2</sup>, [Shengping Zhang](http://homepage.hit.edu.cn/zhangshengping)<sup>1</sup>, [Liqiang Nie](https://liqiangnie.github.io)<sup>1</sup>, [Yebin Liu](https://www.liuyebin.com)<sup>2</sup>
+[Shunyuan Zheng](https://shunyuanzheng.github.io)<sup>1&dagger;</sup>, [Boyao Zhou](https://morpheo.inrialpes.fr/people/zhou)<sup>2</sup>, [Ruizhi Shao](https://dsaurus.github.io/saurus)<sup>2</sup>, [Boning Liu](https://scholar.google.com/citations?user=PG1mUewAAAAJ)<sup>2</sup>, [Shengping Zhang](http://homepage.hit.edu.cn/zhangshengping)<sup>1*</sup>, [Liqiang Nie](https://liqiangnie.github.io)<sup>1</sup>, [Yebin Liu](https://www.liuyebin.com)<sup>2</sup>
 
-<sup>1</sup>Harbin Institute of Technology <sup>2</sup>Tsinghua Univserity
+<sup>1</sup>Harbin Institute of Technology &nbsp;&nbsp;<sup>2</sup>Tsinghua Univserity
+<sup>*</sup>Corresponding author &nbsp;&nbsp;<sup>&dagger;</sup>Work done during an internship at Tsinghua Univserity
 
 ### [Projectpage](https://shunyuanzheng.github.io/GPS-Gaussian) · [Paper](https://arxiv.org/pdf/2312.02155.pdf) · [Video](https://youtu.be/TBIekcqt0j0)
 
 </div>
 
-<img src="https://shunyuanzheng.github.io/assets/GPS-Gaussian/images/teaser.png">
+## Introduction
 
-***Abstract**: We present a new approach, termed GPS-Gaussian, for synthesizing novel views of a character in a real-time manner. The proposed method enables 2K-resolution rendering under a sparse-view camera setting. Unlike the original Gaussian Splatting or neural implicit rendering methods that necessitate per-subject optimizations, we introduce Gaussian parameter maps defined on the source views and regress directly Gaussian Splatting properties for instant novel view synthesis without any fine-tuning or optimization. To this end, we train our Gaussian parameter regression module on a large amount of human scan data, jointly with a depth estimation module to lift 2D parameter maps to 3D space. The proposed framework is fully differentiable and experiments on several datasets demonstrate that our method outperforms state-of-the-art methods while achieving an exceeding rendering speed.*
+We propose GPS-Gaussian, a generalizable pixel-wise 3D Gaussian representation for synthesizing novel views of any unseen characters instantly without any fine-tuning or optimization.
 
-Code is coming soon.
+## Installation
 
-## Free View Rendering Results
-### Data collected by ourselves
+To deploy and run GPS-Gaussian, run the following scripts:
+```
+conda env create --file environment.yml
+conda activate gps_gaussian
+```
+Then, compile the ```diff-gaussian-rasterization``` in [3DGS](https://github.com/graphdeco-inria/gaussian-splatting) repository:
+```
+git clone https://github.com/graphdeco-inria/gaussian-splatting --recursive
+cd gaussian-splatting/
+pip install -e submodules/diff-gaussian-rasterization
+cd ..
+```
+(optinal) [RAFT-Stereo](https://github.com/princeton-vl/RAFT-Stereo) provides a faster CUDA implementation of the correlation sampler to speed up the model without impacting performance:
+```
+git clone https://github.com/princeton-vl/RAFT-Stereo.git
+cd RAFT-Stereo/sampler && python setup.py install && cd ../..
+```
+If compiled this CUDA implementation, set ```corr_implementation='reg_cuda'``` in [config/stereo_human_config.py](config/stereo_human_config.py#L33) else ```corr_implementation='reg'```.
 
-https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/36d06407-fadc-485a-864b-961fbd4d4b60
+## Run on synthetic human dataset
 
-### Data from [DNA-Rendering](https://dna-rendering.github.io/)
+### Dataset Preparation
+- We provide rendered THuman2.0 dataset for GPS-Gaussian training, download [render_data](https://pan.baidu.com/s/1sX9m8wRDSQAI9d78wST7mw?pwd=rax4) and unzip it. Since we recommend rectifying the source images and determining the disparity in an offline manner, the saved files and the downloaded data necessity around 50GB of free storage space.
+- To train a more robust model, we recommend collecting more human scans for training (e.g. [Twindom](https://web.twindom.com), [Render People](https://renderpeople.com/), [2K2K](https://sanghunhan92.github.io/conference/2K2K/)). Then, render the training data as the target scenario, including the number of cameras and the radius of the scene.
 
-https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/d392673c-13cd-442d-aa94-6629c9edfb3c
+### Training
+Note: At the first training time, we do stereo rectify and determine the disparity offline, the processed data will be saved at ```render_data/rectified_local```. This process takes several hours and can extremely speed up the following training scheme. If you want to skip this pre-processing, set ```use_processed_data=False``` in [stage1.yaml](config/stage1.yaml#L11) and [stage2.yaml](config/stage2.yaml#L15).
 
-https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/371171ca-46a9-427b-9549-9d65fc4b135d
+- Stage1: pretrain the depth prediction model. Set ```data_root```in [stage1.yaml](config/stage1.yaml#L12) to the path of unzipped folder ```render_data```.
+```
+python train_stage1.py
+```
 
-## Live Demo
+- Stage2: train the full model. Set ```data_root``` in [stage2.yaml](config/stage2.yaml#L16) to the path of unzipped folder ```render_data```, and set the correct pretrained stage1 model path ```stage1_ckpt``` in [stage2.yaml](config/stage2.yaml#L3)
+```
+python train_stage2.py
+```
+- We provide the pretrained model ```GPS-GS_stage2_final.pth``` in [this link](https://pan.baidu.com/s/1sX9m8wRDSQAI9d78wST7mw?pwd=rax4) for fast evaluation and testing.
 
-https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/e5f30839-ab01-4594-81e8-f1ea5314ff36
+### Testing
 
-https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/31fd4012-7344-418c-aa06-a614ded3c236
+- Real-world data: download the test data ```real_data``` from [this link](https://pan.baidu.com/s/1sX9m8wRDSQAI9d78wST7mw?pwd=rax4). Then, run the following code for synthesizing a fixed novel view between ```src_view``` 0 and 1, the position of novel viewpoint between source views is adjusted with a ```ratio``` ranging from 0 to 1. 
+```
+python test_real_data.py \
+--test_data_root 'PATH/TO/REAL_DATA' \
+--ckpt_path 'PATH/TO/GPS-GS_stage2_final.pth' \
+--src_view 0 1 \
+--ratio=0.5
+```
 
-https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/fa894569-1771-438e-927d-7680147f17ca
+- Freeview rendering: run the following code to interpolate freeview between source views, and modify the ```novel_view_nums``` to set a specific number of novel viewpoints.
+```
+python test_view_interp.py \
+--test_data_root 'PATH/TO/RENDER_DATA/val' \
+--ckpt_path 'PATH/TO/GPS-GS_stage2_final.pth' \
+--novel_view_nums 5
+```
 
+## Citation
 
-
+If you find this code useful for your research, please consider citing:
+```
+@article{zheng2023gpsgaussian,
+  title={GPS-Gaussian: Generalizable Pixel-wise 3D Gaussian Splatting for Real-time Human Novel View Synthesis},
+  author={Zheng, Shunyuan and Zhou, Boyao and Shao, Ruizhi and Liu, Boning and Zhang, Shengping and Nie, Liqiang and Liu, Yebin},
+  journal={arXiv},
+  year={2023}
+```

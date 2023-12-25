@@ -1,0 +1,23 @@
+name: 'GPS-GS_stage1'
+
+restore_ckpt: None
+lr: 0.0002
+wdecay: 1e-5
+batch_size: 6
+num_steps: 40000
+
+dataset:
+  source_id: [0, 1]
+  use_processed_data: True
+  data_root: 'PATH/TO/RENDER_DATA'
+
+raft:
+  mixed_precision: False
+  train_iters: 3
+  val_iters: 3
+  encoder_dims: [32, 48, 96]
+  hidden_dims: [96, 96, 96]
+
+record:
+  loss_freq: 2000
+  eval_freq: 2000

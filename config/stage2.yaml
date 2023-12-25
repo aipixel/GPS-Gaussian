@@ -1,0 +1,32 @@
+name: 'GPS-GS_stage2'
+
+stage1_ckpt: 'PATH/TO/GPS-GS_stage1_final.pth'
+restore_ckpt: None
+lr: 0.0002
+wdecay: 1e-5
+batch_size: 2
+num_steps: 100000
+
+dataset:
+  source_id: [0, 1]
+  train_novel_id: [2, 3, 4]
+  val_novel_id: [3]
+  use_hr_img: True
+  use_processed_data: True
+  data_root: 'PATH/TO/RENDER_DATA'
+
+raft:
+  mixed_precision: True
+  train_iters: 3
+  val_iters: 3
+  encoder_dims: [32, 48, 96]
+  hidden_dims: [96, 96, 96]
+
+gsnet:
+  encoder_dims: [32, 48, 96]
+  decoder_dims: [48, 64, 96]
+  parm_head_dim: 32
+
+record:
+  loss_freq: 5000
+  eval_freq: 5000
