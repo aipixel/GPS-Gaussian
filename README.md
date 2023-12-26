@@ -15,6 +15,8 @@
 
 We propose GPS-Gaussian, a generalizable pixel-wise 3D Gaussian representation for synthesizing novel views of any unseen characters instantly without any fine-tuning or optimization.
 
+https://github.com/ShunyuanZheng/GPS-Gaussian/assets/33752042/54a253ad-012a-448f-8303-168d80d3f594
+
 ## Installation
 
 To deploy and run GPS-Gaussian, run the following scripts:
