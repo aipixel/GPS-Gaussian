@@ -39,7 +39,7 @@ If compiled this CUDA implementation, set ```corr_implementation='reg_cuda'``` i
 ## Run on synthetic human dataset
 
 ### Dataset Preparation
-- We provide rendered THuman2.0 dataset for GPS-Gaussian training, download [render_data](https://pan.baidu.com/s/1sX9m8wRDSQAI9d78wST7mw?pwd=rax4) and unzip it. Since we recommend rectifying the source images and determining the disparity in an offline manner, the saved files and the downloaded data necessity around 50GB of free storage space.
+- We provide rendered THuman2.0 dataset for GPS-Gaussian training, download ```render_data``` from [Baidu Netdisk](https://pan.baidu.com/s/1sX9m8wRDSQAI9d78wST7mw?pwd=rax4) or [OneDrive](https://hiteducn0-my.sharepoint.com/:f:/g/personal/sawyer0503_hit_edu_cn/EkE2GFd2saBCh_XkY3TsoV0BVTmK1UiTTKJDYje3U3vdkw?e=YazWdd) and unzip it. Since we recommend rectifying the source images and determining the disparity in an offline manner, the saved files and the downloaded data necessity around 50GB of free storage space.
 - To train a more robust model, we recommend collecting more human scans for training (e.g. [Twindom](https://web.twindom.com), [Render People](https://renderpeople.com/), [2K2K](https://sanghunhan92.github.io/conference/2K2K/)). Then, render the training data as the target scenario, including the number of cameras and the radius of the scene.
 
 ### Training
@@ -54,11 +54,11 @@ python train_stage1.py
 ```
 python train_stage2.py
 ```
-- We provide the pretrained model ```GPS-GS_stage2_final.pth``` in [this link](https://pan.baidu.com/s/1sX9m8wRDSQAI9d78wST7mw?pwd=rax4) for fast evaluation and testing.
+- We provide the pretrained model ```GPS-GS_stage2_final.pth``` in [Baidu Netdisk](https://pan.baidu.com/s/1sX9m8wRDSQAI9d78wST7mw?pwd=rax4) and [OneDrive](https://hiteducn0-my.sharepoint.com/:f:/g/personal/sawyer0503_hit_edu_cn/EkE2GFd2saBCh_XkY3TsoV0BVTmK1UiTTKJDYje3U3vdkw?e=YazWdd) for fast evaluation and testing.
 
 ### Testing
 
-- Real-world data: download the test data ```real_data``` from [this link](https://pan.baidu.com/s/1sX9m8wRDSQAI9d78wST7mw?pwd=rax4). Then, run the following code for synthesizing a fixed novel view between ```src_view``` 0 and 1, the position of novel viewpoint between source views is adjusted with a ```ratio``` ranging from 0 to 1. 
+- Real-world data: download the test data ```real_data``` from [Baidu Netdisk](https://pan.baidu.com/s/1sX9m8wRDSQAI9d78wST7mw?pwd=rax4) or [OneDrive](https://hiteducn0-my.sharepoint.com/:f:/g/personal/sawyer0503_hit_edu_cn/EkE2GFd2saBCh_XkY3TsoV0BVTmK1UiTTKJDYje3U3vdkw?e=YazWdd). Then, run the following code for synthesizing a fixed novel view between ```src_view``` 0 and 1, the position of novel viewpoint between source views is adjusted with a ```ratio``` ranging from 0 to 1. 
 ```
 python test_real_data.py \
 --test_data_root 'PATH/TO/REAL_DATA' \
