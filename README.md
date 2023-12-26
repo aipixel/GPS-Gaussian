@@ -4,8 +4,8 @@
 
 [Shunyuan Zheng](https://shunyuanzheng.github.io)<sup>1&dagger;</sup>, [Boyao Zhou](https://morpheo.inrialpes.fr/people/zhou)<sup>2</sup>, [Ruizhi Shao](https://dsaurus.github.io/saurus)<sup>2</sup>, [Boning Liu](https://scholar.google.com/citations?user=PG1mUewAAAAJ)<sup>2</sup>, [Shengping Zhang](http://homepage.hit.edu.cn/zhangshengping)<sup>1*</sup>, [Liqiang Nie](https://liqiangnie.github.io)<sup>1</sup>, [Yebin Liu](https://www.liuyebin.com)<sup>2</sup>
 
-<sup>1</sup>Harbin Institute of Technology &nbsp;&nbsp;<sup>2</sup>Tsinghua Univserity
-<sup>*</sup>Corresponding author &nbsp;&nbsp;<sup>&dagger;</sup>Work done during an internship at Tsinghua Univserity
+<p><sup>1</sup>Harbin Institute of Technology &nbsp;&nbsp;<sup>2</sup>Tsinghua Univserity
+<br><sup>*</sup>Corresponding author &nbsp;&nbsp;<sup>&dagger;</sup>Work done during an internship at Tsinghua Univserity<p>
 
 ### [Projectpage](https://shunyuanzheng.github.io/GPS-Gaussian) · [Paper](https://arxiv.org/pdf/2312.02155.pdf) · [Video](https://youtu.be/TBIekcqt0j0)
 
