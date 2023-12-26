@@ -87,8 +87,6 @@ def stereo_pts2flow(pts0, pts1, rectify0, rectify1, Tf_x):
 
 def read_img(name):
     img = np.array(Image.open(name))
-    if len(img.shape) == 3 and img.shape[2] == 4:
-        img = img[:, :, :3]
     return img
 
 
