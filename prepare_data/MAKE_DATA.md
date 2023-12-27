@@ -10,7 +10,7 @@ We provide a scripts for rendering training data from human scans, many thanks [
 │   ├── 0004/
 │   │   ├── 0004.obj
 │   │   ├── material0.jpeg
-│   │   └── 
+│   │   └── material0.mtl
 │   ├── 0005
 │   ├── 0007
 │   └── ...
