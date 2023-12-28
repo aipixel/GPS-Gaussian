@@ -126,8 +126,8 @@ def render_data(renderer, data_path, phase, data_id, save_path, cam_nums, res, d
         renderer.add_model(obj, texture)
 
     degree_interval = 360 / cam_nums
-    angle_list1 = list(range(360-11, 360))
-    angle_list2 = list(range(0, 0+12))
+    angle_list1 = list(range(360-degree_interval//2, 360))
+    angle_list2 = list(range(0, 0+degree_interval//2))
     angle_list = angle_list1 + angle_list2
     angle_base = np.random.choice(angle_list, 1)[0]
     if is_thuman:
