@@ -59,12 +59,11 @@ class Trainer:
             self.optimizer.zero_grad()
             data = self.fetch_data(phase='train')
 
-            #  Raft Stereo
+            #  Raft Stereo + GS Regresser
             data, flow_loss, metrics = self.model(data, is_train=True)
             #  Gaussian Render
             data = pts2render(data, bg_color=self.cfg.dataset.bg_color)
 
-            # Loss
             render_novel = data['novel_view']['img_pred']
             gt_novel = data['novel_view']['img'].cuda()
 
