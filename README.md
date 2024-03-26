@@ -81,9 +81,9 @@ python test_view_interp.py \
 
 If you find this code useful for your research, please consider citing:
 ```
-@article{zheng2023gpsgaussian,
+@inproceedings{zheng2023gpsgaussian,
   title={GPS-Gaussian: Generalizable Pixel-wise 3D Gaussian Splatting for Real-time Human Novel View Synthesis},
   author={Zheng, Shunyuan and Zhou, Boyao and Shao, Ruizhi and Liu, Boning and Zhang, Shengping and Nie, Liqiang and Liu, Yebin},
-  journal={arXiv},
-  year={2023}
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year={2024}
 ```
