@@ -77,10 +77,10 @@ python test_view_interp.py \
 --novel_view_nums 5
 ```
 
-## Citation
+# Citation
 
 If you find this code useful for your research, please consider citing:
-```
+```bibtex
 @inproceedings{zheng2023gpsgaussian,
   title={GPS-Gaussian: Generalizable Pixel-wise 3D Gaussian Splatting for Real-time Human Novel View Synthesis},
   author={Zheng, Shunyuan and Zhou, Boyao and Shao, Ruizhi and Liu, Boning and Zhang, Shengping and Nie, Liqiang and Liu, Yebin},
