@@ -7,7 +7,7 @@
 <p><sup>1</sup>Harbin Institute of Technology &nbsp;&nbsp;<sup>2</sup>Tsinghua Univserity &nbsp;&nbsp;<sup>3</sup>Peng Cheng Laboratory
 <br><sup>*</sup>Corresponding author &nbsp;&nbsp;<sup>&dagger;</sup>Work done during an internship at Tsinghua Univserity<p>
 
-### [Projectpage](https://shunyuanzheng.github.io/GPS-Gaussian) · [Paper](https://arxiv.org/pdf/2312.02155.pdf) · [Video](https://youtu.be/TBIekcqt0j0)
+### [Projectpage](https://shunyuanzheng.github.io/GPS-Gaussian) · [Paper](https://arxiv.org/pdf/2312.02155.pdf) · [Video](https://youtu.be/HjnBAqjGIAo)
 
 </div>
 
