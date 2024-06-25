@@ -7,7 +7,7 @@
 <p><sup>1</sup>Harbin Institute of Technology &nbsp;&nbsp;<sup>2</sup>Tsinghua Univserity &nbsp;&nbsp;<sup>3</sup>Peng Cheng Laboratory
 <br><sup>*</sup>Corresponding author &nbsp;&nbsp;<sup>&dagger;</sup>Work done during an internship at Tsinghua Univserity<p>
 
-### [Projectpage](https://shunyuanzheng.github.io/GPS-Gaussian) · [Paper]([https://arxiv.org/pdf/2312.02155.pdf](https://openaccess.thecvf.com/content/CVPR2024/papers/Zheng_GPS-Gaussian_Generalizable_Pixel-wise_3D_Gaussian_Splatting_for_Real-time_Human_Novel_CVPR_2024_paper.pdf))· [Supp.]([https://arxiv.org/pdf/2312.02155.pdf](https://openaccess.thecvf.com/content/CVPR2024/supplemental/Zheng_GPS-Gaussian_Generalizable_Pixel-wise_CVPR_2024_supplemental.pdf)) · [Video](https://youtu.be/HjnBAqjGIAo)
+### [Projectpage](https://shunyuanzheng.github.io/GPS-Gaussian) · [Paper](https://openaccess.thecvf.com/content/CVPR2024/papers/Zheng_GPS-Gaussian_Generalizable_Pixel-wise_3D_Gaussian_Splatting_for_Real-time_Human_Novel_CVPR_2024_paper.pdf) · [Supp.](https://openaccess.thecvf.com/content/CVPR2024/supplemental/Zheng_GPS-Gaussian_Generalizable_Pixel-wise_CVPR_2024_supplemental.pdf) · [Video](https://youtu.be/HjnBAqjGIAo)
 
 </div>
 
