@@ -55,6 +55,36 @@ def get_novel_calib(data, opt, ratio=0.5, intr_key='intr', extr_key='extr'):
     return data
 
 
+def get_novel_calib_for_show(data, ratio=0.5, intr_key='intr', extr_key='extr'):
+    bs = data['lmain'][intr_key].shape[0]
+    intr_list, extr_list = [], []
+    data['novel_view'] = {}
+    for i in range(bs):
+        intr0 = data['lmain'][intr_key][i, ...].cpu().numpy()
+        intr1 = data['rmain'][intr_key][i, ...].cpu().numpy()
+        extr0 = data['lmain'][extr_key][i, ...].cpu().numpy()
+        extr1 = data['rmain'][extr_key][i, ...].cpu().numpy()
+
+        rot0 = extr0[:3, :3]
+        rot1 = extr1[:3, :3]
+        rots = Rot.from_matrix(np.stack([rot0, rot1]))
+        key_times = [0, 1]
+        slerp = Slerp(key_times, rots)
+        rot = slerp(ratio)
+        npose = np.diag([1.0, 1.0, 1.0, 1.0])
+        npose = npose.astype(np.float32)
+        npose[:3, :3] = rot.as_matrix()
+        npose[:3, 3] = ((1.0 - ratio) * extr0 + ratio * extr1)[:3, 3]
+        extr_new = npose[:3, :]
+
+        intr_new = ((1.0 - ratio) * intr0 + ratio * intr1)
+        intr_list.append(intr_new)
+        extr_list.append(extr_new)
+    data['novel_view']['intr'] = torch.FloatTensor(np.array(intr_list)).cuda()
+    data['novel_view']['extr'] = torch.FloatTensor(np.array(extr_list)).cuda()
+    return data
+
+
 def depth2pc(depth, extrinsic, intrinsic):
     B, C, S, S = depth.shape
     depth = depth[:, 0, :, :]
@@ -88,3 +118,11 @@ def flow2depth(data):
     depth *= data['mask'][:, :1, :, :]
 
     return depth
+
+def perspective(pts, calibs):
+    pts = pts.permute(0, 2, 1)
+    pts = torch.bmm(calibs[:, :3, :3], pts)
+    pts = pts + calibs[:, :3, 3:4]
+    pts[:, :2, :] /= pts[:, 2:, :]
+    pts = pts.permute(0, 2, 1)
+    return pts

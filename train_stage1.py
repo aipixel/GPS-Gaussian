@@ -2,6 +2,7 @@ from __future__ import print_function, division
 import logging
 
 import numpy as np
+import cv2
 import os
 from pathlib import Path
 from tqdm import tqdm
@@ -11,6 +12,8 @@ from lib.human_loader import StereoHumanDataset
 from lib.network import RtStereoHumanModel
 from config.stereo_human_config import ConfigStereoHuman as config
 from lib.train_recoder import Logger, file_backup
+from lib.utils import get_novel_calib_for_show as get_novel_calib
+from lib.TaichiRender import TaichiRenderBatch
 
 import torch
 import torch.optim as optim
@@ -46,6 +49,7 @@ class Trainer:
         self.model.train()
         self.model.raft_stereo.freeze_bn()
         self.scaler = GradScaler(enabled=self.cfg.raft.mixed_precision)
+        self.render = TaichiRenderBatch(bs=1, res=1024)
 
     def train(self):
         for _ in tqdm(range(self.total_steps, self.cfg.num_steps)):
@@ -85,10 +89,20 @@ class Trainer:
         logging.info(f"Doing validation ...")
         torch.cuda.empty_cache()
         epe_list, one_pix_list = [], []
+        show_idx = np.random.choice(list(range(self.len_val)), 1)
         for idx in range(self.len_val):
             data = self.fetch_data(phase='val')
             with torch.no_grad():
                 data, _, _ = self.model(data, is_train=False)
+
+                if idx == show_idx:
+                    data = get_novel_calib(data, ratio=0.5)
+                    data = self.render.flow2render(data)
+                    tmp_novel = data['novel_view']['img_pred'][0].detach()
+                    tmp_novel = (tmp_novel / 2.0 + 0.5) * 255
+                    tmp_novel = tmp_novel.permute(1, 2, 0).cpu().numpy()
+                    tmp_img_name = '%s/%s.jpg' % (cfg.record.show_path, self.total_steps)
+                    cv2.imwrite(tmp_img_name, tmp_novel[:, :, ::-1].astype(np.uint8))
 
                 for view in ['lmain', 'rmain']:
                     valid = (data[view]['valid'] >= 0.5)
@@ -159,11 +173,12 @@ if __name__ == '__main__':
     dt = datetime.today()
     cfg.exp_name = '%s_%s%s' % (cfg.name, str(dt.month).zfill(2), str(dt.day).zfill(2))
     cfg.record.ckpt_path = "experiments/%s/ckpt" % cfg.exp_name
+    cfg.record.show_path = "experiments/%s/show" % cfg.exp_name
     cfg.record.logs_path = "experiments/%s/logs" % cfg.exp_name
     cfg.record.file_path = "experiments/%s/file" % cfg.exp_name
     cfg.freeze()
 
-    for path in [cfg.record.ckpt_path, cfg.record.logs_path, cfg.record.file_path]:
+    for path in [cfg.record.ckpt_path, cfg.record.show_path, cfg.record.logs_path, cfg.record.file_path]:
         Path(path).mkdir(exist_ok=True, parents=True)
 
     file_backup(cfg.record.file_path, cfg, train_script=os.path.basename(__file__))
