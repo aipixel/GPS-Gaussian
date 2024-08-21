@@ -49,7 +49,7 @@ class Trainer:
         self.model.train()
         self.model.raft_stereo.freeze_bn()
         self.scaler = GradScaler(enabled=self.cfg.raft.mixed_precision)
-        self.render = TaichiRenderBatch(bs=1, res=1024)
+        self.render = TaichiRenderBatch(bs=1, res=self.cfg.dataset.src_res)
 
     def train(self):
         for _ in tqdm(range(self.total_steps, self.cfg.num_steps)):

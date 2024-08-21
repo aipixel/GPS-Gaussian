@@ -8,6 +8,7 @@ num_steps: 40000
 
 dataset:
   source_id: [0, 1]
+  src_res: 1024
   use_processed_data: True
   data_root: 'PATH/TO/RENDER_DATA'
 

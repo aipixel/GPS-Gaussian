@@ -11,6 +11,7 @@ dataset:
   source_id: [0, 1]
   train_novel_id: [2, 3, 4]
   val_novel_id: [3]
+  src_res: 1024
   use_hr_img: True
   use_processed_data: True
   data_root: 'PATH/TO/RENDER_DATA'

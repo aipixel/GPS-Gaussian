@@ -33,10 +33,12 @@ def save(pid, data_id, vid, save_path, extr, intr, depth, img, mask, img_hr=None
 
 
 class StaticRenderer:
-    def __init__(self):
+    def __init__(self, src_res):
         ti.init(arch=ti.cuda, device_memory_fraction=0.8)
         self.scene = t3.Scene()
         self.N = 10
+        self.src_res = src_res
+        self.hr_res = (src_res[0] * 2, src_res[1] * 2)
     
     def change_all(self):
         save_obj = []
@@ -75,10 +77,10 @@ class StaticRenderer:
         self.scene.models[index]._init()
     
     def camera_light(self):
-        camera = t3.Camera(res=(1024, 1024))
+        camera = t3.Camera(res=self.src_res)
         self.scene.add_camera(camera)
 
-        camera_hr = t3.Camera(res=(2048, 2048))
+        camera_hr = t3.Camera(res=self.hr_res)
         self.scene.add_camera(camera_hr)
         
         light_dir = np.array([0, 0, 1])
@@ -126,8 +128,8 @@ def render_data(renderer, data_path, phase, data_id, save_path, cam_nums, res, d
         renderer.add_model(obj, texture)
 
     degree_interval = 360 / cam_nums
-    angle_list1 = list(range(360-degree_interval//2, 360))
-    angle_list2 = list(range(0, 0+degree_interval//2))
+    angle_list1 = list(range(360-int(degree_interval//2), 360))
+    angle_list2 = list(range(0, 0+int(degree_interval//2)))
     angle_list = angle_list1 + angle_list2
     angle_base = np.random.choice(angle_list, 1)[0]
     if is_thuman:
@@ -142,7 +144,7 @@ def render_data(renderer, data_path, phase, data_id, save_path, cam_nums, res, d
     for pid in range(cam_nums):
         angle = angle_base + pid * degree_interval
 
-        def render(dis, angle, look_at_center, p, renderer, render_2k=False):
+        def render(dis, angle, look_at_center, p, renderer, render_hr=False):
             ori_vec = np.array([0, 0, dis])
             rotate = np.matmul(rotationY(math.radians(angle)), rotationX(math.radians(p)))
             fwd = np.matmul(rotate, ori_vec)
@@ -160,7 +162,7 @@ def render_data(renderer, data_path, phase, data_id, save_path, cam_nums, res, d
             renderer.scene.cameras[0].set(pos=cam_pos, target=look_at_center)
             renderer.scene.cameras[0]._init()
 
-            if render_2k:
+            if render_hr:
                 fx = res[0] * 0.8 * 2
                 fy = res[1] * 0.8 * 2
                 _cx = (res[0] * 0.5 - x_min) * 2
@@ -200,11 +202,11 @@ def render_data(renderer, data_path, phase, data_id, save_path, cam_nums, res, d
         angle2 = (angle + degree_interval / 2) % 360
         angle3 = (angle + degree_interval - (np.random.uniform() * degree_interval / 2)) % 360
 
-        extr, intr, depth, img, mask, img_hr = render(dis, angle1, look_at_center, base_cam_pitch, renderer, render_2k=True)
+        extr, intr, depth, img, mask, img_hr = render(dis, angle1, look_at_center, base_cam_pitch, renderer, render_hr=True)
         save(pid, data_id, 2, save_path, extr, intr, depth, img, mask, img_hr)
-        extr, intr, depth, img, mask, img_hr = render(dis, angle2, look_at_center, base_cam_pitch, renderer, render_2k=True)
+        extr, intr, depth, img, mask, img_hr = render(dis, angle2, look_at_center, base_cam_pitch, renderer, render_hr=True)
         save(pid, data_id, 3, save_path, extr, intr, depth, img, mask, img_hr)
-        extr, intr, depth, img, mask, img_hr = render(dis, angle3, look_at_center, base_cam_pitch, renderer, render_2k=True)
+        extr, intr, depth, img, mask, img_hr = render(dis, angle3, look_at_center, base_cam_pitch, renderer, render_hr=True)
         save(pid, data_id, 4, save_path, extr, intr, depth, img, mask, img_hr)
 
 
@@ -214,7 +216,9 @@ if __name__ == '__main__':
     res = (1024, 1024)
     thuman_root = 'PATH/TO/THuman2.0'
     save_root = 'PATH/TO/SAVE/RENDERED/DATA'
-    renderer = StaticRenderer()
+
+    np.random.seed(1314)
+    renderer = StaticRenderer(src_res=res)
 
     for phase in ['train', 'val']:
         thuman_list = sorted(os.listdir(os.path.join(thuman_root, phase)))

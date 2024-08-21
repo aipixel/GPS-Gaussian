@@ -246,7 +246,7 @@ class StereoHumanDataset(Dataset):
         img0, mask0, intr0, extr0, pts0 = main_view_data
         img1, mask1, intr1, extr1, pts1 = ref_view_data
 
-        H, W = 1024, 1024
+        H, W = self.opt.src_res, self.opt.src_res
         r0, t0 = extr0[:3, :3], extr0[:3, 3:]
         r1, t1 = extr1[:3, :3], extr1[:3, 3:]
         inv_r0 = r0.T
@@ -406,7 +406,7 @@ class StereoHumanDataset(Dataset):
         dict_tensor['lmain']['extr_ori'] = torch.FloatTensor(lmain_extr_ori)
         dict_tensor['rmain']['extr_ori'] = torch.FloatTensor(rmain_extr_ori)
 
-        img_len = 2048 if self.opt.use_hr_img else 1024
+        img_len = self.opt.src_res * 2 if self.opt.use_hr_img else self.opt.src_res
         novel_dict = {
             'height': torch.IntTensor([img_len]),
             'width': torch.IntTensor([img_len])

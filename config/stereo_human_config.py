@@ -16,6 +16,7 @@ class ConfigStereoHuman:
         self.cfg.dataset.source_id = None
         self.cfg.dataset.train_novel_id = None
         self.cfg.dataset.val_novel_id = None
+        self.cfg.dataset.src_res = None
         self.cfg.dataset.use_hr_img = None
         self.cfg.dataset.use_processed_data = None
         self.cfg.dataset.data_root = ''
