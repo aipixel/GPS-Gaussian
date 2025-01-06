@@ -213,7 +213,7 @@ class StereoHumanDataset(Dataset):
     def get_novel_view_tensor(self, sample_name, view_id):
         img, _, intr, extr, _ = self.load_single_view(sample_name, view_id, hr_img=self.opt.use_hr_img,
                                                       require_mask=False, require_pts=False)
-        width, height = img.shape[:2]
+        height, width = img.shape[:2]
         img = torch.from_numpy(img).permute(2, 0, 1)
         img = img / 255.0
 
