@@ -28,7 +28,7 @@ class GSRegresser(nn.Module):
             ResidualBlock(self.decoder_dims[0], self.decoder_dims[0], norm_fn=norm_fn)
         )
         self.up = nn.Upsample(scale_factor=2, mode="bilinear")
-        self.out_conv = nn.Conv2d(self.decoder_dims[0]+rgb_dim+1, self.head_dim, kernel_size=3, padding=1)
+        self.out_conv = nn.Conv2d(self.decoder_dims[0]+rgb_dim+depth_dim, self.head_dim, kernel_size=3, padding=1)
         self.out_relu = nn.ReLU(inplace=True)
 
         self.rot_head = nn.Sequential(
